@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+@model DA.AppBanwao.TariffBazaar.ViewModels.SliderModel
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index","Home")">Home</a></li>
+    <li class="active">Add Image to slider</li>
+</ul>
+<hr />
+<h2>Slider Image</h2>
+<hr />
+<div class="row">
+    <div class="col-xs-12">
+
+
+
+        @using (Html.BeginForm("Create", "Slider", FormMethod.Post, new { @class = "form-horizontal", @enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.OfferHeading, new { @class = "col-lg-2 control-label" })
+
+                <div class="col-lg-6">
+                    @Html.TextBoxFor(m => m.OfferHeading, new { @class = "form-control" })
+
+                </div>
+
+                <div class="col-lg-4">
+                    @Html.ValidationMessageFor(m => m.OfferHeading, null, new { @class = "text-warning" })
+
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Description, new { @class = "col-lg-2 control-label" })
+
+                <div class="col-lg-6">
+
+                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+
+                </div>
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.SliderImage, new { @class = "col-lg-2 control-label" })
+
+                <div class="col-lg-6">
+                  <img src="@Url.Content(Model.ImageLink)" class="img-responsive" />  <input type="file" accept=".jpg,.png" name="SliderImage" /> 
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Order, new { @class = "col-lg-2 control-label" })
+
+                <div class="col-lg-6">
+                    @Html.TextBoxFor(m => m.Order, new { @class = "form-control" })
+
+                </div>
+            </div>
+
+          <div class="form-group">
+                     <div class="col-lg-2">Active</div>
+                     <div class="col-lg-10">
+                       
+                         <div class="checkbox">
+                             <label>
+                                 @Html.CheckBoxFor(m=>m.Active) 
+                             </label>
+                         </div>
+                     </div>
+                 </div>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+
+                    <button type="submit" class="btn btn-success">Edit <i class="fa fa-edit"></i>  </button>
+                    <button type="reset" class="btn btn-default">Cancel</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-xs-12">
+        <a href="@Url.Action("Index","Account")" class="btn btn-danger">Back</a>
+    </div>
+</div>

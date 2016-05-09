@@ -1,0 +1,98 @@
+﻿<link href="~/Content/themes/base/all.css" rel="stylesheet" />
+<link href="~/Content/themes/base/autocomplete.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="@Url.Action("Index","Home")">
+          <img src="~/Images/logo.png" style="width:200px;height:50px;margin-top:-15px" /></a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+   
+      @using(Html.BeginForm("SearchProducts","View",FormMethod.Post, new {@class="navbar-form navbar-left ", @id="frmSearch", @role="search"}))
+       { <div class="form-group">
+          <input class="form-control" name="search" id="txtitemSearch" placeholder="I am looking for...." type="text">
+        </div>
+        
+      }
+       
+       
+        <a href="@Url.Action("EarnRent","Home")" class="btn btn-info btnNavbar">Earn Rent <i class="fa fa-inr"></i></a>
+      
+        <button onclick="Uploadproduct()" class="btn btn-primary btnNavbar">Upload product <i class="fa fa-upload"></i></button>
+      <ul class="nav navbar-nav navbar-right">
+          @if(!User.Identity.IsAuthenticated)
+          { 
+               <li><a href="@Url.Action("Register","Account")"> Register <i class="fa fa-user"></i></a></li>
+              <li><a href="@Url.Action("LogIn","Account")"> Sign In <i class="fa fa-sign-in"></i></a></li>
+         }
+          else{
+              if (User.IsInRole("Customer") || User.IsInRole("Admin"))
+              {         
+               <li class="dropdown">
+
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">My Items<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="@Url.Action("Index","RentItem")">Details</a></li>
+          
+          </ul>
+        </li>
+              }
+              if(User.IsInRole("Admin"))
+              {         
+               <li class="dropdown">
+
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin Work <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="@Url.Action("Index","RentItem")">View Items</a></li>
+              <li><a href="@Url.Action("Index","Account")">Users</a></li>
+              <li><a href="@Url.Action("Index","Slider")">Slider</a></li>
+            </ul>
+        </li>
+              }
+                        <li class="dropdown">
+
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@User.Identity.Name <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="@Url.Action("MyProfile","Account")">My Profile</a></li>
+           
+            <li class="divider"></li>
+           @* <li><a href="#">Separated link</a></li>*@
+            @*<li class="divider"></li>*@
+            <li><a href="@Url.Action("LogOut","Account")">Logout</a></li>
+          </ul>
+        </li>
+          }
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#txtitemSearch').autocomplete({ source: '@Url.Action("GetItemsForRent","View")' });
+        $('#txtitemSearch').change(function () {
+            $('frmSearch').submit();
+        });
+    });
+
+    function Uploadproduct()
+    {
+        if ('@User.Identity.IsAuthenticated' === 'True')
+        {
+            window.location.href = "@Url.Action("UploadItem","RentItem")";
+        } else {
+            
+            alert("Please login to upload the product.");
+        }
+    }
+</script>

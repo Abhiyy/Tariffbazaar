@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Tariff Bazaar Get Items on rent, Delhi, India, Cars, MotorCycles, Computers, Home Appliances ";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+@model List<DA.AppBanwao.TariffBazaar.ViewModels.RentItemDetailsModel>
+    <div class="row">
+       <div class="col-xs-12">
+           @Html.Partial("_PartialSlider")
+       </div>
+    </div>
+<hr />
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+  <div class="panel-heading" style="text-align:center">LATEST UPLOADS</div>
+  <div class="panel-body">
+    <div class="row">
+    <div class="col-md-12">
+        @foreach (var item in Model)
+        { 
+        <text>
+        <div class="col-md-4 ProductinList">
+            
+                <div>
+                    <img src="@Url.Content(item.ImageLink1)" class="thumbnail productImageHome" alt="productImage" />
+                </div>
+                <div class="description">
+                    <h5>Item: @item.Name</h5>
+                    <i class="fa fa-inr"></i> @item.Rent per @item.RentCriteriaName  - <span class="text-success">Available!!</span>
+                    <h6></h6>
+                    <a href="@Url.Action("Product","View",new {id=item.RentItemId})" class="btn-sm btn-primary" > View Details <i class="fa fa-search-plus"></i> </a>
+                </div>
+         <br /></div>
+        </text>
+        }
+
+    </div>
+</div>
+  </div>
+</div>
+    </div>
+</div>
+

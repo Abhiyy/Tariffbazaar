@@ -1,0 +1,92 @@
+﻿
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">You must Login or Signup to see details</h4>
+      </div>
+      <div class="modal-body">
+       <ul class="nav nav-tabs">
+  <li ><a href="#login" data-toggle="tab">Login</a></li>
+  
+ 
+</ul>
+<div id="myTabContent" class="tab-content">
+  <div class="tab-pane fade active in" id="login">
+  <form class="form-horizontal">
+  <br /> 
+      @Html.AntiForgeryToken()
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+      <div class="col-lg-10">
+        <input class="form-control" id="inputEmail" placeholder="Email" type="text">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+      <div class="col-lg-10">
+        <input class="form-control" id="inputPwd" placeholder="Password" type="password">
+          
+      </div>
+
+    </div>
+  
+    <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
+    
+        
+      </div>
+    </div>
+  
+</form>
+     
+    
+          <button class="btn btn-primary" id="btnLogin" style="margin-left:18%">Login</button>
+          <a href="@Url.Action("Register","Account")" class="btn btn-warning">Register here</a>
+      
+    
+  </div>
+
+  
+  
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  
+
+    $(document).ready(function () {
+        $('#btnLogin').click(function () {
+           
+            var userEmail = $('#inputEmail').val();
+            var pswd = $('#inputPwd').val();
+            if (userEmail.length > 0 || pswd.length > 0) {
+
+                $.ajax({
+                    method: "POST",
+                    url: '@Url.Action("LoginUser","Account")',
+                    data: { email: userEmail, pwd: pswd },
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.msg == 'ok') {
+                           
+                            window.location.href = response.url;
+
+                        } else {
+                            alert(msg);
+                        }
+                    }
+
+                });
+            } else {
+
+                alert("Please enter email/password.");
+                return false;
+            }
+        });
+    });
+    
+</script>

@@ -1,0 +1,183 @@
+﻿@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+@model DA.AppBanwao.TariffBazaar.ViewModels.RentItemDetailsModel
+
+<div class="row" >
+<h3 class="text-primary">Item Details</h3>
+    <div class="col-xs-6">
+        <div class="col-xs-6">
+            <div class="form-control-static">
+            @Html.LabelFor(m=>m.Name)
+                </div>
+             <div class="form-control-static">
+            @Html.LabelFor(m=>m.Description)
+                 </div>
+             <div class="form-control-static">
+            @Html.LabelFor(m=>m.CategoryName)
+                 </div>
+            <div class="form-control-static">
+                <label> Item Available for:</label>
+
+
+            </div>
+             <div class="form-control-static">
+            @Html.LabelFor(m=>m.Rent)
+                 </div>  
+            <div class="form-control-static">
+               @Html.LabelFor(m => m.SaleAmount)
+            </div>
+            <div class="form-control-static">
+            @Html.Label("Minimum period of rent")
+                 </div>
+
+             <div class="form-control-static">
+            @Html.LabelFor(m=>m.AdActive)
+                 </div>  
+             <div class="form-control-static">
+            @Html.LabelFor(m=>m.Features)
+                 </div>
+            
+           
+
+        </div>
+         <div class="col-xs-6">
+             <div class="form-control-static">
+            @Html.DisplayFor(m=>m.Name)
+                 </div>
+              <div class="form-control-static">
+             @Html.DisplayFor(m=>m.Description)
+                  </div>
+              <div class="form-control-static">
+             @Html.DisplayFor(m=>m.CategoryName)
+                  </div>
+             <div class="form-control-static">
+                 @if (Model.ForRent.Value)
+                 { <text>Rent </text>}
+                 @if (Model.ForRent.Value && Model.ForSale.Value)
+                 { <text> and </text>}
+                 @if (Model.ForSale.Value)
+                 { <text> Sale </text>}
+             </div>
+
+              <div class="form-control-static">
+             <i class="fa fa-inr"></i>   @Html.DisplayFor(m=>m.Rent) / @Html.DisplayFor(m=>m.RentCriteriaName) 
+                  </div>
+             <div class="form-control-static">
+                 <i class="fa fa-inr"></i>   @Html.DisplayFor(m => m.SaleAmount) 
+             </div>
+              <div class="form-control-static">
+                @Html.DisplayFor(m=>m.MinimumDays) day(s).
+                  </div>
+              <div class="form-control-static">
+                @Html.DisplayFor(m=>m.AdActive)
+                  </div>
+             <div class="form-control-static">
+              
+                 @foreach(var feature in Model.Features.Split(';').ToList())
+              {
+               <span><i class="fa fa-check"></i> @feature.ToString()</span>
+              <br />
+                 }
+                      </div>
+               
+             
+
+                </div>
+
+        </div>
+
+    <div class="col-xs-6">
+        <div class="col-xs-6">
+            <div class="form-control-static">
+            @Html.LabelFor(m=>m.SecurityAmount)
+                </div>
+           
+             <div class="form-control-static">
+            @Html.LabelFor(m=>m.Owner)
+                 </div>
+             <div class="form-control-static">
+            @Html.LabelFor(m=>m.Contact)
+                 </div>
+             <div class="form-control-static">
+            @Html.Label("Email Address")
+                 </div>
+             <div class="form-control-static">
+            @Html.LabelFor(m=>m.CreatedOn)
+                 </div>
+            
+             <div class="form-control-static">
+            @Html.LabelFor(m=>m.UpdatedOn)
+                 </div>
+            <div class="form-control-static">
+            @Html.LabelFor(m=>m.AdApprove)
+                 </div>
+              <div class="form-control-static">
+            @Html.LabelFor(m=>m.TermsConditions)
+                 </div>
+        </div>
+         <div class="col-xs-6">
+             <div class="form-control-static">
+         <i class="fa fa-inr"></i>   @Html.DisplayFor(m=>m.SecurityAmount)
+                 </div>
+              
+              <div class="form-control-static">
+             @Html.DisplayFor(m=>m.UserName)
+                  </div>
+              <div class="form-control-static">
+                @Html.DisplayFor(m=>m.Contact)
+                  </div>
+             <div class="form-control-static">
+              
+             @Html.DisplayFor(m=>m.Email)
+                 </div>
+                <div class="form-control-static">
+                @Html.DisplayFor(m=>m.CreatedOn)
+                  </div>
+             <div class="form-control-static">
+                @Html.DisplayFor(m=>m.UpdatedOn)
+                  </div>
+             <div class="form-control-static">
+                @Html.DisplayFor(m=>m.AdActive)
+                  </div>
+             <div class="form-control-static">
+              
+                 @foreach(var terms in Model.TermsConditions.Split(';').ToList())
+              {
+               <span><i class="fa fa-check"></i> @terms.ToString()</span>
+              <br />
+                 }
+                      </div>
+                </div>
+
+        </div>
+    </div>
+<hr />
+<h4 class="text-info">Images</h4>
+<div class="row">
+  <div class="col-xs-6 col-md-3">
+    <a href="#" class="thumbnail">
+      <img src="@Url.Content(Model.ImageLink1)" alt="...">
+    </a>
+  </div>
+ 
+</div>
+<hr />
+<div class="row">
+    <div class="col-xs-12 spacebottom" >
+        <a href="@Url.Action("Edit", "RentItem", new { id= Model.RentItemId})" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> Edit</a>
+        
+        
+         <a href="@Url.Action("ActivateDeactivate", "RentItem", new { id = Model.RentItemId })" class="btn btn-default"><i class="fa fa-check"></i> @if(!Model.Active.Value){<text>Active</text>}else{<text> Deactivate</text>}</a>
+        @if(User.IsInRole("Admin"))
+        {
+             <a href="@Url.Action("ApproveRequest","RentItem", new { id= Model.RentItemId})" class="btn btn-info"><i class="fa fa-check-square-o"></i>@if(!Model.Approved.Value){<text> Approve</text>}else{<text> Disapprove</text>}</a>
+        <a href="@Url.Action("Delete","RentItem", new { id= Model.RentItemId})" class="btn btn-danger"><i class="fa fa-times"></i> Delete</a>
+        }   <hr />
+           <a href="@Url.Action("Index","RentItem")" class="btn btn-default"><i class="fa fa-backward"></i> Back to items</a>
+         
+    </div>
+    
+</div>

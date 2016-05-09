@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TariffBazaarModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="TariffBazaarModelStoreContainer">
+    <EntitySet Name="Categories" EntityType="TariffBazaarModel.Store.Categories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="City" EntityType="TariffBazaarModel.Store.City" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Item" EntityType="TariffBazaarModel.Store.Item" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OtpHolder" EntityType="TariffBazaarModel.Store.OtpHolder" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RentBasis" EntityType="TariffBazaarModel.Store.RentBasis" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Roles" EntityType="TariffBazaarModel.Store.Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserNames" EntityType="TariffBazaarModel.Store.UserNames" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="CityId" />
+    </Key>
+    <Property Name="CityId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="RentItemId" />
+    </Key>
+    <Property Name="RentItemId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="varchar" MaxLength="40" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+    <Property Name="Features" Type="varchar" MaxLength="300" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="TermsConditions" Type="varchar" MaxLength="300" />
+    <Property Name="MinimumDays" Type="int" />
+    <Property Name="SecurityAmount" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Rent" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="RentCriteria" Type="int" />
+    <Property Name="ImageLink1" Type="varchar" MaxLength="100" />
+    <Property Name="ImageLink2" Type="varchar" MaxLength="100" />
+    <Property Name="ImageLink3" Type="varchar" MaxLength="100" />
+    <Property Name="Shipable" Type="bit" />
+    <Property Name="Active" Type="bit" />
+    <Property Name="Approved" Type="bit" />
+    <Property Name="UserName" Type="varchar" MaxLength="100" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="CityId" Type="int" />
+    <Property Name="UserId" Type="int" />
+  </EntityType>
+  <EntityType Name="OtpHolder">
+    <Key>
+      <PropertyRef Name="OtpId" />
+    </Key>
+    <Property Name="OtpId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="OtpReference" Type="varchar" MaxLength="70" />
+    <Property Name="Otp" Type="varchar" MaxLength="70" />
+  </EntityType>
+  <EntityType Name="RentBasis">
+    <Key>
+      <PropertyRef Name="RentBasisId" />
+    </Key>
+    <Property Name="RentBasisId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="UserNames">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="EmailAddress" Type="varchar" Nullable="false" MaxLength="70" />
+    <Property Name="Password" Type="varchar" Nullable="false" MaxLength="15" />
+    <Property Name="Usern" Type="varchar" MaxLength="15" />
+    <Property Name="Role" Type="varchar" MaxLength="15" />
+    <Property Name="Phone" Type="varchar" MaxLength="15" />
+    <Property Name="Active" Type="bit" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
+</Schema>

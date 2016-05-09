@@ -1,0 +1,252 @@
+﻿
+@{
+    ViewBag.Title = "UploadItem";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+@model DA.AppBanwao.TariffBazaar.ViewModels.CreateRentItemModel
+<div class="row">
+    <div class="col-xs-12">
+     <h2>Upload Item for Rent</h2>
+        <hr />
+        <br />
+           @using (Html.BeginForm("UploadItem", "RentItem", FormMethod.Post, new { @class = "form-horizontal", @enctype = "multipart/form-data" }))
+        { 
+        @Html.AntiForgeryToken()
+             
+   <div class="form-group">
+     @Html.LabelFor(m => m.Name, new { @class = "col-lg-2 control-label" })
+         
+      <div class="col-lg-6">
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+         
+      </div>
+
+        <div class="col-lg-4">
+            @Html.ValidationMessageFor(m => m.Name, null, new { @class = "text-warning" })
+
+        </div>
+    </div>
+                 <div class="form-group">
+                     @Html.LabelFor(m => m.Category, new { @class = "col-lg-2 control-label" })
+
+                     <div class="col-lg-6">
+                       @Html.DropDownListFor(m => m.Category,(SelectList)ViewBag.Categories)
+
+                     </div>
+                    
+                 </div>
+                 <div class="form-group">
+                     @Html.LabelFor(m => m.Description, new { @class = "col-lg-2 control-label" })
+
+                     <div class="col-lg-6">
+                         @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+
+                     </div>
+                 </div>
+                 <div class="form-group">
+                     @Html.LabelFor(m => m.Features, new { @class = "col-lg-2 control-label" })
+
+                     <div class="col-lg-6">
+                         @Html.TextAreaFor(m => m.Features, new { @class = "form-control" })
+                         <p class="text text-info">Please add multiple features seperated by using semi-colon (;) symbol</p>
+                     </div>
+                     <div class="col-lg-4">
+                         @Html.ValidationMessageFor(m => m.Features, null, new { @class = "text-warning" })
+
+                     </div>
+                 </div>
+
+                 <div class="form-group">
+                     @Html.LabelFor(m => m.TermsConditions, new { @class = "col-lg-2 control-label" })
+
+                     <div class="col-lg-6">
+                         @Html.TextAreaFor(m => m.TermsConditions, new { @class = "form-control" })
+                         <p class="text text-info">Please add multiple Terms and conditions seperated by using semi-colon (;) symbol</p>
+                     </div>
+                     <div class="col-lg-4">
+                         @Html.ValidationMessageFor(m => m.TermsConditions, null, new { @class = "text-warning" })
+
+                     </div>
+                 </div>
+               
+               <div class="form-group">
+                     <div class="col-lg-2"></div>
+                     <div class="col-lg-10">
+                       
+                         <div class="checkbox">
+                             <label>
+                                 @Html.CheckBoxFor(m=>m.Forrent) Item for rent
+                             </label>
+                         </div>
+                     </div>
+                 </div>
+               
+    <div id="rentPanel" style="display:none">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Rent, new { @class = "col-lg-2 control-label" })
+
+            <div class="col-lg-6">
+                @Html.TextBoxFor(m => m.Rent, new { @class = "form-control" })
+
+            </div>
+
+            <div class="col-lg-4">
+                @Html.ValidationMessageFor(m => m.Rent, null, new { @class = "text-warning" })
+            </div>
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.RentCriteria, new { @class = "col-lg-2 control-label" })
+
+            <div class="col-lg-6">
+                @Html.DropDownListFor(m => m.RentCriteria, (SelectList)ViewBag.RentCriteria)
+
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Security, new { @class = "col-lg-2 control-label" })
+
+            <div class="col-lg-6">
+                @Html.TextBoxFor(m => m.Security, new { @class = "form-control" })
+
+
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.MinDays, new { @class = "col-lg-2 control-label" })
+
+            <div class="col-lg-6">
+                @Html.TextBoxFor(m => m.MinDays, new { @class = "form-control" })
+
+            </div>
+            @Html.ValidationMessageFor(m => m.MinDays, null, new {@class="text-warning" })
+        </div>
+    </div>
+               
+                
+               <div class="form-group">
+                     <div class="col-lg-2"></div>
+                     <div class="col-lg-10">
+                       
+                         <div class="checkbox">
+                             <label>
+                                 @Html.CheckBoxFor(m=>m.ForSale) Item for sale
+                             </label>
+                         </div>
+                     </div>
+                 </div>
+               
+               <div id="salePanel" style="display:none">
+        <div class="form-group">
+            @Html.LabelFor(m => m.SaleAmount, new { @class = "col-lg-2 control-label" })
+
+            <div class="col-lg-6">
+                 @Html.TextBoxFor(m => m.SaleAmount, new { @class = "form-control" })
+
+            </div>
+
+            <div class="col-lg-4">
+                @Html.ValidationMessageFor(m => m.SaleAmount, null, new { @class = "text-warning" })
+            </div>
+
+        </div>
+                    </div>
+               
+                 <div class="form-group">
+                     @Html.LabelFor(m => m.City, new { @class = "col-lg-2 control-label" })
+
+                     <div class="col-lg-6">
+                       @Html.DropDownListFor(m => m.City,(SelectList)ViewBag.Cities)
+
+                     </div>
+                    
+                 </div>
+                 <div class="form-group">
+                     @Html.LabelFor(m => m.Image1, new { @class = "col-lg-2 control-label" })
+
+                     <div class="col-lg-6">
+                         <input type="file" accept=".jpg,.png" name="Image1" /> 
+                     
+                     </div>
+                     <div class="col-lg-4">
+                         @Html.ValidationMessageFor(m => m.Image1, null, new { @class = "text-warning" })
+                         </div>
+                     </div>
+                 <div class="form-group">
+                     @Html.LabelFor(m => m.Image2, new { @class = "col-lg-2 control-label" })
+
+                     <div class="col-lg-10">
+                         <input type="file" accept=".jpg,.png" name="Image2" />
+
+
+                     </div>
+                 </div>
+                 <div class="form-group">
+                     @Html.LabelFor(m => m.Image3, new { @class = "col-lg-2 control-label" })
+
+                     <div class="col-lg-10">
+                         <input type="file" accept=".jpg,.png" name="Image3" />
+
+
+                     </div>
+                 </div>
+                 <div class="form-group">
+                     <div class="col-lg-2"></div>
+                     <div class="col-lg-10">
+                       
+                         <div class="checkbox">
+                             <label>
+                                 @Html.CheckBoxFor(m=>m.Shipable) Do you want this item to be shipped by us, when a person rents it?
+                             </label>
+                         </div>
+                     </div>
+                 </div>
+       
+
+    <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
+    
+        <button type="submit" class="btn btn-primary">Add Item</button>
+          <button type="reset" class="btn btn-default">Cancel</button>
+      </div>
+    </div>
+        }
+    </div>
+</div>
+<hr />
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        if ($("#Forrent").is(':checked')) {
+            $('#rentPanel').css('display', 'block');
+        } else {
+            $('#rentPanel').css('display', 'none');
+        }
+
+        if ($("#ForSale").is(':checked')) {
+            $('#salePanel').css('display', 'block');
+        } else {
+            $('#salePanel').css('display', 'none');
+        }
+
+        $("#Forrent").change(function () {
+            if (this.checked) {
+                $('#rentPanel').css('display', 'block');
+            } else {
+                $('#rentPanel').css('display', 'none');
+            }
+        });
+
+        $("#ForSale").change(function () {
+            if (this.checked) {
+                $('#salePanel').css('display', 'block');
+            } else {
+                $('#salePanel').css('display', 'none');
+            }
+        });
+    })
+
+</script>

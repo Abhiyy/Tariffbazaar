@@ -1,0 +1,20 @@
+﻿@{
+    
+    var categories = new DA.AppBanwao.TariffBazaar.Models.TariffBazaarEntities().Categories.ToList();
+}
+
+
+<div class="panel panel-default">
+  <div class="panel-heading" style="text-align:center">Browse Products <i class="fa fa-binoculars"></i></div>
+  <div class="panel-body">
+      <div class="list-group">
+   @foreach(var category in categories){
+          <a href="@Url.Action("Category", "View", new { id=category.CategoryId})" class="list-group-item">
+  @* <span class="badge">14</span>*@
+       @category.Description
+  </a>
+          }
+   
+  </div>
+</div>
+    </div>

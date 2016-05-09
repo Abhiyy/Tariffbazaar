@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Tariff Bazaar | Register";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+@model DA.AppBanwao.TariffBazaar.ViewModels.SignUpModel
+
+<div class="row">
+    <div class="col-xs-6 col-xs-offset-3"  style="border-right:1px dotted #f8f8f8;margin-top:10%">
+
+<div class="panel panel-warning" style="">
+  <div class="panel-heading">
+    <h3 class="panel-title">Sign up</h3>
+  </div>
+  <div class="panel-body">
+    
+ @using(Html.BeginForm())
+ {
+     @Html.AntiForgeryToken()
+   <div class="form-group">
+       @Html.LabelFor(m=>m.Name, new {@class="col-lg-3 control-label"})
+     
+      <div class="col-lg-9">
+          @Html.TextBoxFor(m=>m.Name, new {@class="form-control", @placeholder="Name"})
+       
+      </div>
+    </div>
+    <div class="form-group">
+         @Html.LabelFor(m=>m.Email, new {@class="col-lg-3 control-label"})
+     
+      <div class="col-lg-9">
+           @Html.TextBoxFor(m=>m.Email, new {@class="form-control", @placeholder="Email"})
+       </div>
+    </div>
+    <div class="form-group">
+          @Html.LabelFor(m=>m.Password, new {@class="col-lg-3 control-label"})
+      <div class="col-lg-9">
+            @Html.PasswordFor(m=>m.Password, new {@class="form-control", @placeholder="Password"})
+        
+        
+      </div>
+    </div>
+        <div class="form-group">
+          @Html.LabelFor(m=>m.Phone, new {@class="col-lg-3 control-label"})
+      <div class="col-lg-9">
+            @Html.TextBoxFor(m=>m.Phone, new {@class="form-control", @placeholder="Phone"})
+        
+        
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <div class="col-lg-9 col-lg-offset-3">
+        
+        <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i>
+ Create Account</button>
+          <button type="reset" class="btn btn-default"><i class="fa fa-times-circle"></i> Clear</button>
+      </div>
+    </div>
+ }
+  </div>
+</div>
+    </div>
+    <div class="col-xs-6">
+
+
+        </div>
+    </div>
+
+<script>
+    $(document).ready(function () {
+        $('form').addClass("form-horizontal");
+    });
+</script>

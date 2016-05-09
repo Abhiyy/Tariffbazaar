@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Tariff Bazaar | Verify User";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+     bool isConfirm =false;
+    if(ViewBag.IsConfirmed != null)
+    {  isConfirm = true;}
+    }
+
+<div class="row">
+				<div class="col-sm-6 col-sm-offset-1">
+					<span class="label label-info" style="font-size:20px;font-weight:bold">Account Activation</span><br /><br />
+                        @if(@isConfirm)
+{
+                        <p class="text-success">
+                            Thank you for verifying your account. Please @Html.ActionLink("Login","LogIn","Account") to your own rental space and start giving/taking things on rent right away.
+                        </p>   
+}else{
+<div>
+                        <p class="text-danger">
+    You have entered a wrong zone.
+</p>
+</div>
+}
+						
+				</div>
+				
+			</div>

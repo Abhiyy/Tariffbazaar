@@ -1,0 +1,21 @@
+﻿@{
+    
+    var cities = new DA.AppBanwao.TariffBazaar.Models.TariffBazaarEntities().Cities.ToList();
+}
+
+<div class="panel panel-info">
+  <div class="panel-heading" style="text-align:center">Products in your City <i class="fa fa-binoculars"></i></div>
+  <div class="panel-body">
+      <div class="list-group">
+  
+          @foreach(var city in cities){
+          <a href="@Url.Action("CitySearch", "View", new { id=city.CityId})" class="list-group-item">
+   @*<span class="badge">14</span>*@
+       @city.Description
+  </a>
+          }
+        
+</div>
+   
+  </div>
+</div>

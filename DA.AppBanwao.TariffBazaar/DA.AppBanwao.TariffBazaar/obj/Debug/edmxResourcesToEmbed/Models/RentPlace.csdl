@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TariffBazaarModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="TariffBazaarEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="TariffBazaarModel.Category" />
+    <EntitySet Name="Cities" EntityType="TariffBazaarModel.City" />
+    <EntitySet Name="Countries" EntityType="TariffBazaarModel.Country" />
+    <EntitySet Name="Items" EntityType="TariffBazaarModel.Item" />
+    <EntitySet Name="Logs" EntityType="TariffBazaarModel.Log" />
+    <EntitySet Name="OtpHolders" EntityType="TariffBazaarModel.OtpHolder" />
+    <EntitySet Name="RentBasis" EntityType="TariffBazaarModel.RentBasi" />
+    <EntitySet Name="Roles" EntityType="TariffBazaarModel.Role" />
+    <EntitySet Name="UserContactDetails" EntityType="TariffBazaarModel.UserContactDetail" />
+    <EntitySet Name="UserDetails" EntityType="TariffBazaarModel.UserDetail" />
+    <EntitySet Name="UserNames" EntityType="TariffBazaarModel.UserName" />
+  </EntityContainer>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="CityId" />
+    </Key>
+    <Property Name="CityId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="CountryId" />
+    </Key>
+    <Property Name="CountryId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="RentItemId" />
+    </Key>
+    <Property Name="RentItemId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="40" Unicode="false" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Features" Type="String" MaxLength="300" Unicode="false" FixedLength="false" />
+    <Property Name="CategoryId" Type="Int32" />
+    <Property Name="TermsConditions" Type="String" MaxLength="300" Unicode="false" FixedLength="false" />
+    <Property Name="MinimumDays" Type="Int32" />
+    <Property Name="SecurityAmount" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Rent" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="RentCriteria" Type="Int32" />
+    <Property Name="ImageLink1" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="ImageLink2" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="ImageLink3" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Shipable" Type="Boolean" />
+    <Property Name="Active" Type="Boolean" />
+    <Property Name="Approved" Type="Boolean" />
+    <Property Name="UserName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="CityId" Type="Int32" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="ForRent" Type="Boolean" />
+    <Property Name="ForSale" Type="Boolean" />
+    <Property Name="SaleAmount" Type="Decimal" Precision="15" Scale="2" />
+  </EntityType>
+  <EntityType Name="Log">
+    <Key>
+      <PropertyRef Name="LogId" />
+    </Key>
+    <Property Name="LogId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="MessageType" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Message" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="MethodName" Type="String" MaxLength="70" Unicode="false" FixedLength="false" />
+    <Property Name="FileName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="UserName" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+    <Property Name="EventTimeStamp" Type="DateTime" Precision="3" />
+    <Property Name="IpAddress" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="OtpHolder">
+    <Key>
+      <PropertyRef Name="OtpId" />
+    </Key>
+    <Property Name="OtpId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="OtpReference" Type="String" MaxLength="70" Unicode="false" FixedLength="false" />
+    <Property Name="Otp" Type="String" MaxLength="70" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="RentBasi">
+    <Key>
+      <PropertyRef Name="RentBasisId" />
+    </Key>
+    <Property Name="RentBasisId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UserContactDetail">
+    <Key>
+      <PropertyRef Name="UserContactId" />
+    </Key>
+    <Property Name="UserContactId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Address1" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Address2" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="City" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="State" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Country" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="PostalCode" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UserDetail">
+    <Key>
+      <PropertyRef Name="UserDetailsId" />
+    </Key>
+    <Property Name="UserDetailsId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Gender" Type="Int32" />
+    <Property Name="DOB" Type="DateTime" Precision="0" />
+    <Property Name="Profession" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CityId" Type="Int32" />
+    <Property Name="CountryId" Type="Int32" />
+    <Property Name="Pincode" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UserName">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="70" Unicode="false" FixedLength="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+    <Property Name="Usern" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+    <Property Name="Role" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+    <Property Name="Phone" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+    <Property Name="Active" Type="Boolean" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+  </EntityType>
+</Schema>

@@ -1,0 +1,489 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TariffBazaarModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="TariffBazaarModelStoreContainer">
+          <EntitySet Name="Categories" EntityType="TariffBazaarModel.Store.Categories" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="City" EntityType="TariffBazaarModel.Store.City" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Countries" EntityType="TariffBazaarModel.Store.Countries" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Item" EntityType="TariffBazaarModel.Store.Item" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Logs" EntityType="TariffBazaarModel.Store.Logs" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OtpHolder" EntityType="TariffBazaarModel.Store.OtpHolder" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RentBasis" EntityType="TariffBazaarModel.Store.RentBasis" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Roles" EntityType="TariffBazaarModel.Store.Roles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Slider" EntityType="TariffBazaarModel.Store.Slider" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserContactDetail" EntityType="TariffBazaarModel.Store.UserContactDetail" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserDetails" EntityType="TariffBazaarModel.Store.UserDetails" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserNames" EntityType="TariffBazaarModel.Store.UserNames" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Countries">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="RentItemId" />
+          </Key>
+          <Property Name="RentItemId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" MaxLength="40" />
+          <Property Name="Description" Type="varchar" MaxLength="1000" />
+          <Property Name="Features" Type="varchar" MaxLength="1000" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="TermsConditions" Type="varchar" MaxLength="1000" />
+          <Property Name="MinimumDays" Type="int" />
+          <Property Name="SecurityAmount" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Rent" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="RentCriteria" Type="int" />
+          <Property Name="ImageLink1" Type="varchar" MaxLength="100" />
+          <Property Name="ImageLink2" Type="varchar" MaxLength="100" />
+          <Property Name="ImageLink3" Type="varchar" MaxLength="100" />
+          <Property Name="Shipable" Type="bit" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Approved" Type="bit" />
+          <Property Name="UserName" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="CityId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="ForRent" Type="bit" />
+          <Property Name="ForSale" Type="bit" />
+          <Property Name="SaleAmount" Type="decimal" Precision="15" Scale="2" />
+        </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="MessageType" Type="varchar" MaxLength="50" />
+          <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="MethodName" Type="varchar" MaxLength="70" />
+          <Property Name="FileName" Type="varchar" MaxLength="50" />
+          <Property Name="UserName" Type="varchar" MaxLength="255" />
+          <Property Name="EventTimeStamp" Type="datetime" />
+          <Property Name="IpAddress" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="OtpHolder">
+          <Key>
+            <PropertyRef Name="OtpId" />
+          </Key>
+          <Property Name="OtpId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OtpReference" Type="varchar" MaxLength="70" />
+          <Property Name="Otp" Type="varchar" MaxLength="70" />
+        </EntityType>
+        <EntityType Name="RentBasis">
+          <Key>
+            <PropertyRef Name="RentBasisId" />
+          </Key>
+          <Property Name="RentBasisId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Slider">
+          <Key>
+            <PropertyRef Name="SliderID" />
+          </Key>
+          <Property Name="SliderID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OfferHeading" Type="varchar" MaxLength="100" />
+          <Property Name="ImageLink" Type="varchar" MaxLength="250" />
+          <Property Name="Offer" Type="varchar" MaxLength="300" />
+          <Property Name="SlideOrder" Type="int" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="UserContactDetail">
+          <Key>
+            <PropertyRef Name="UserContactId" />
+          </Key>
+          <Property Name="UserContactId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="Address1" Type="varchar" MaxLength="100" />
+          <Property Name="Address2" Type="varchar" MaxLength="100" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="State" Type="varchar" MaxLength="50" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="UserDetails">
+          <Key>
+            <PropertyRef Name="UserDetailsId" />
+          </Key>
+          <Property Name="UserDetailsId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="Gender" Type="int" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="Profession" Type="varchar" MaxLength="50" />
+          <Property Name="CityId" Type="int" />
+          <Property Name="CountryId" Type="int" />
+          <Property Name="Pincode" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="UserNames">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EmailAddress" Type="varchar" Nullable="false" MaxLength="70" />
+          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="15" />
+          <Property Name="Usern" Type="varchar" MaxLength="15" />
+          <Property Name="Role" Type="varchar" MaxLength="15" />
+          <Property Name="Phone" Type="varchar" MaxLength="15" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TariffBazaarModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="TariffBazaarEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="TariffBazaarModel.Category" />
+          <EntitySet Name="Cities" EntityType="TariffBazaarModel.City" />
+          <EntitySet Name="Countries" EntityType="TariffBazaarModel.Country" />
+          <EntitySet Name="Items" EntityType="TariffBazaarModel.Item" />
+          <EntitySet Name="Logs" EntityType="TariffBazaarModel.Log" />
+          <EntitySet Name="OtpHolders" EntityType="TariffBazaarModel.OtpHolder" />
+          <EntitySet Name="RentBasis" EntityType="TariffBazaarModel.RentBasi" />
+          <EntitySet Name="Roles" EntityType="TariffBazaarModel.Role" />
+          <EntitySet Name="Sliders" EntityType="TariffBazaarModel.Slider" />
+          <EntitySet Name="UserContactDetails" EntityType="TariffBazaarModel.UserContactDetail" />
+          <EntitySet Name="UserDetails" EntityType="TariffBazaarModel.UserDetail" />
+          <EntitySet Name="UserNames" EntityType="TariffBazaarModel.UserName" />
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="RentItemId" />
+          </Key>
+          <Property Name="RentItemId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="40" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="Features" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="TermsConditions" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+          <Property Name="MinimumDays" Type="Int32" />
+          <Property Name="SecurityAmount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Rent" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="RentCriteria" Type="Int32" />
+          <Property Name="ImageLink1" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="ImageLink2" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="ImageLink3" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Shipable" Type="Boolean" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Approved" Type="Boolean" />
+          <Property Name="UserName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="ForRent" Type="Boolean" />
+          <Property Name="ForSale" Type="Boolean" />
+          <Property Name="SaleAmount" Type="Decimal" Precision="15" Scale="2" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="MessageType" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="MethodName" Type="String" MaxLength="70" Unicode="false" FixedLength="false" />
+          <Property Name="FileName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="UserName" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="EventTimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="IpAddress" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="OtpHolder">
+          <Key>
+            <PropertyRef Name="OtpId" />
+          </Key>
+          <Property Name="OtpId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="OtpReference" Type="String" MaxLength="70" Unicode="false" FixedLength="false" />
+          <Property Name="Otp" Type="String" MaxLength="70" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="RentBasi">
+          <Key>
+            <PropertyRef Name="RentBasisId" />
+          </Key>
+          <Property Name="RentBasisId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Slider">
+          <Key>
+            <PropertyRef Name="SliderID" />
+          </Key>
+          <Property Name="SliderID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="OfferHeading" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="ImageLink" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="Offer" Type="String" MaxLength="300" Unicode="false" FixedLength="false" />
+          <Property Name="SlideOrder" Type="Int32" />
+          <Property Name="Active" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="UserContactDetail">
+          <Key>
+            <PropertyRef Name="UserContactId" />
+          </Key>
+          <Property Name="UserContactId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Address1" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Address2" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="City" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="State" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Country" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="UserDetail">
+          <Key>
+            <PropertyRef Name="UserDetailsId" />
+          </Key>
+          <Property Name="UserDetailsId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Gender" Type="Int32" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="Profession" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="CountryId" Type="Int32" />
+          <Property Name="Pincode" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="UserName">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="70" Unicode="false" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="Usern" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="Role" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TariffBazaarModelStoreContainer" CdmEntityContainer="TariffBazaarEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="TariffBazaarModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="TariffBazaarModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="TariffBazaarModel.Country">
+              <MappingFragment StoreEntitySet="Countries">
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="TariffBazaarModel.Item">
+              <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="RentItemId" ColumnName="RentItemId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Features" ColumnName="Features" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="TermsConditions" ColumnName="TermsConditions" />
+                <ScalarProperty Name="MinimumDays" ColumnName="MinimumDays" />
+                <ScalarProperty Name="SecurityAmount" ColumnName="SecurityAmount" />
+                <ScalarProperty Name="Rent" ColumnName="Rent" />
+                <ScalarProperty Name="RentCriteria" ColumnName="RentCriteria" />
+                <ScalarProperty Name="ImageLink1" ColumnName="ImageLink1" />
+                <ScalarProperty Name="ImageLink2" ColumnName="ImageLink2" />
+                <ScalarProperty Name="ImageLink3" ColumnName="ImageLink3" />
+                <ScalarProperty Name="Shipable" ColumnName="Shipable" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Approved" ColumnName="Approved" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ForRent" ColumnName="ForRent" />
+                <ScalarProperty Name="ForSale" ColumnName="ForSale" />
+                <ScalarProperty Name="SaleAmount" ColumnName="SaleAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="TariffBazaarModel.Log">
+              <MappingFragment StoreEntitySet="Logs">
+                <ScalarProperty Name="LogId" ColumnName="LogId" />
+                <ScalarProperty Name="MessageType" ColumnName="MessageType" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="MethodName" ColumnName="MethodName" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="EventTimeStamp" ColumnName="EventTimeStamp" />
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OtpHolders">
+            <EntityTypeMapping TypeName="TariffBazaarModel.OtpHolder">
+              <MappingFragment StoreEntitySet="OtpHolder">
+                <ScalarProperty Name="OtpId" ColumnName="OtpId" />
+                <ScalarProperty Name="OtpReference" ColumnName="OtpReference" />
+                <ScalarProperty Name="Otp" ColumnName="Otp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RentBasis">
+            <EntityTypeMapping TypeName="TariffBazaarModel.RentBasi">
+              <MappingFragment StoreEntitySet="RentBasis">
+                <ScalarProperty Name="RentBasisId" ColumnName="RentBasisId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="TariffBazaarModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sliders">
+            <EntityTypeMapping TypeName="TariffBazaarModel.Slider">
+              <MappingFragment StoreEntitySet="Slider">
+                <ScalarProperty Name="SliderID" ColumnName="SliderID" />
+                <ScalarProperty Name="OfferHeading" ColumnName="OfferHeading" />
+                <ScalarProperty Name="ImageLink" ColumnName="ImageLink" />
+                <ScalarProperty Name="Offer" ColumnName="Offer" />
+                <ScalarProperty Name="SlideOrder" ColumnName="SlideOrder" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserContactDetails">
+            <EntityTypeMapping TypeName="TariffBazaarModel.UserContactDetail">
+              <MappingFragment StoreEntitySet="UserContactDetail">
+                <ScalarProperty Name="UserContactId" ColumnName="UserContactId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDetails">
+            <EntityTypeMapping TypeName="TariffBazaarModel.UserDetail">
+              <MappingFragment StoreEntitySet="UserDetails">
+                <ScalarProperty Name="UserDetailsId" ColumnName="UserDetailsId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Profession" ColumnName="Profession" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="Pincode" ColumnName="Pincode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserNames">
+            <EntityTypeMapping TypeName="TariffBazaarModel.UserName">
+              <MappingFragment StoreEntitySet="UserNames">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Usern" ColumnName="Usern" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

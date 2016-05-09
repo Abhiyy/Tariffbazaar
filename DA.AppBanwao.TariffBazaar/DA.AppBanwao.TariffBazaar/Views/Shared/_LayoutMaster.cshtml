@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    @*<link href="~/Content/cerulean.bootstrap.css" rel="stylesheet" />*@
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/feedback.js"></script>
+    </head>
+<body>
+     @Html.Partial("_PartialFeedbackForm")
+    
+   
+    <header>
+        @Html.Partial("_PartialHoriMenu")
+    </header>
+     
+    <div class="wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-3">
+
+                    @Html.Partial("_PartialCategoryMenu")
+
+                    @Html.Partial("_PartialCityMenu")
+                </div>
+                <div class="col-xs-9">
+                    @Html.Partial("_PartialMessages")
+                  
+
+                    @RenderBody()
+                </div>
+
+            </div>
+        </div>
+        
+
+        </div>
+    <footer>
+        <div class="container-fluid" style="background:#f2f2f2">
+
+            <div class="row">
+                <div class="col-sm-3 col-sm-offset-1">
+                    <div class="single-widget">
+                        <h3>Service</h3>
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="@Url.Action("FAQ","Home")">FAQ's</a></li>
+                            <li><a href="@Url.Action("ContactUs","Home")">Contact Us</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="single-widget">
+                        <h3>Policies</h3>
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="@Url.Action("Termsofuse","Home")">Terms of Use</a></li>
+                            <li><a href="@Url.Action("PrivacyPolicy","Home")">Privacy Policy</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="single-widget">
+                        <h3>About Tariff Bazaar</h3>
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="@Url.Action("AboutUs","Home")">About Us</a></li>
+                            <li><a href="#">Copyright</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <i class="fa fa-copyright"></i> 2015, All rights reserved. <div style="float:right">www.tariffbazaar.com</div>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+</body>
+</html>

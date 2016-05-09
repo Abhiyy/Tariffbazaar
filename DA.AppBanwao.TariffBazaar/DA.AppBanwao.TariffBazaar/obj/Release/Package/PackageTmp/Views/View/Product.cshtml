@@ -1,0 +1,138 @@
+﻿@{
+    ViewBag.Title = "Tariff Bazaar | Product";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+@model DA.AppBanwao.TariffBazaar.ViewModels.RentItemDetailsModel
+<ul class="breadcrumb">
+  <li><a href="@Url.Action("Index","Home")">Home</a></li>
+  <li class="active">Item - @Model.Name</li>
+</ul>
+<h2>@Model.Name</h2>
+<hr />
+
+<div class="row" style="margin-top:5%">
+    <div class="col-md-5">
+<div >
+<img src="@Url.Content(Model.ImageLink1)" class="MainImage" alt="productImage1"/>
+</div> 
+        @if (!String.IsNullOrEmpty(Model.ImageLink2))
+        { 
+        <div class="col-md-6">
+            <div >
+<img src="@Url.Content(Model.ImageLink2)" class="MainImage" alt="productImage1"/>
+</div> 
+            </div>
+        }
+         @if (!String.IsNullOrEmpty(Model.ImageLink3))
+        { 
+        <div class="col-md-6">
+            <div >
+<img src="@Url.Content(Model.ImageLink3)" class="MainImage" alt="productImage1"/>
+</div> 
+            </div>
+        }
+    </div>
+    <div class="col-md-7">
+        <div class="list-group">
+  <a href="#" class="list-group-item">
+    <h4 class="list-group-item-heading">Description</h4>
+    <p class="list-group-item-text">@Model.Description</p>
+  </a>
+  <a href="#" class="list-group-item">
+    <h4 class="list-group-item-heading">Pricing </h4>
+    
+    <p class="list-group-item-text">
+        @if (Model.ForRent.Value)
+        {
+        <span class="label label-info"> Rent: <i class="fa fa-inr"></i> @Model.Rent per @Model.RentCriteriaName</span>   
+        if (Model.SecurityAmount.Value > 0)
+        { 
+       <text>
+        
+       <span class="label label-info"> Security Deposit: <i class="fa fa-inr"></i> @Model.SecurityAmount</span>
+        </text>
+        }
+        }
+        @if (Model.ForSale.Value)
+        { 
+        <span class="label label-info"> For Sale: <i class="fa fa-inr"></i> @Model.SaleAmount</span>
+        }
+        
+    </p>
+      
+  </a>
+            <a href="#" class="list-group-item">
+    <h4 class="list-group-item-heading"> Features </h4>
+    <p class="list-group-item-text">
+        @foreach (var feature in Model.Features.Split(';').ToList())
+        { 
+       <span> <i class="fa fa-check"></i> @feature</span><br />
+        }
+    </p>
+  </a>
+
+               <a href="#" class="list-group-item">
+    <h4 class="list-group-item-heading"> Terms and Conditions </h4>
+    <p class="list-group-item-text">
+        @foreach (var term in Model.TermsConditions.Split(';').ToList())
+        { 
+       <span> <i class="fa fa-check"></i> @term</span><br />
+        }
+    </p>
+  </a>
+             <a href="#" class="list-group-item">
+    <h4 class="list-group-item-heading"> Minimum days for rent </h4>
+    <p class="list-group-item-text">
+      @Model.MinimumDays
+    </p>
+  </a>
+             <a href="#" class="list-group-item">
+    <h4 class="list-group-item-heading"> City </h4>
+    <p class="list-group-item-text">
+    <span ><i class="fa fa-map-marker"></i>  @Model.City</span>
+    </p>
+  </a>
+            @if(User.Identity.IsAuthenticated)
+            {
+            <a href="#" class="list-group-item">
+    <h4 class="list-group-item-heading"> Owner Name </h4>
+    <p class="list-group-item-text">
+     <i class="fa fa-user"></i>  @Model.UserName
+    </p>
+  </a>
+                  <a href="#" class="list-group-item">
+    <h4 class="list-group-item-heading"> Contact </h4>
+    <p class="list-group-item-text">
+     <i class="fa fa-mobile"></i> +91- @Model.Contact
+    </p>
+  </a>
+                  <a href="#" class="list-group-item">
+    <h4 class="list-group-item-heading"> Email </h4>
+    <p class="list-group-item-text">
+     <i class="fa fa-inbox"></i> @Model.Email
+    </p>
+  </a>
+                   <button onclick="ShowUserMessageBox()" class="btn btn-info" style="margin-top:5px">Message Owner <i class="fa fa-envelope"></i> </button>
+            }else
+            {
+                <br />
+            <button  onclick="LoginorSignup()" class="btn btn-success" style="float:right;margin-left:2px">View Contact Details <i class="fa fa-search"></i> </button>
+            
+            }
+            @Html.Partial("_PartialLogin")
+            @Html.Partial("_PartialUserMessage")
+           <script>
+               function LoginorSignup()
+               {
+                   $('#myModal').modal();
+               }
+               function ShowUserMessageBox() {
+                   $('#userMessage').modal();
+               }
+           </script>
+</div>
+        
+       </div>
+
+</div>
+<hr />

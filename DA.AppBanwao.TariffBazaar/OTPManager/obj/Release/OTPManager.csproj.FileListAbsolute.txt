@@ -1,0 +1,5 @@
+D:\My work\DA work\Product\DA.AppBanwao.TariffBazaar\OTPManager\bin\Release\OTPManager.dll
+D:\My work\DA work\Product\DA.AppBanwao.TariffBazaar\OTPManager\bin\Release\OTPManager.pdb
+D:\My work\DA work\Product\DA.AppBanwao.TariffBazaar\OTPManager\obj\Release\OTPManager.csprojResolveAssemblyReference.cache
+D:\My work\DA work\Product\DA.AppBanwao.TariffBazaar\OTPManager\obj\Release\OTPManager.dll
+D:\My work\DA work\Product\DA.AppBanwao.TariffBazaar\OTPManager\obj\Release\OTPManager.pdb
