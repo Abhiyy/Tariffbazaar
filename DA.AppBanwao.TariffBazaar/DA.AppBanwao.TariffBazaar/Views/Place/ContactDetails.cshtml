@@ -1,0 +1,275 @@
+﻿@{
+    ViewBag.Title = "ContactDetails";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+<script src="~/Scripts/angular.min.js"></script>
+
+<script>
+
+    var app = angular.module('PlaceContactApp', []);
+
+    app.controller('PlaceContactController', ['$scope', '$location', '$http', function ($scope, $location, $http) {
+
+        $http.get('@System.Configuration.ConfigurationManager.AppSettings["EventorsWebApiLink"].ToString()' + 'Populate/GetCities').then(function (responses) {
+            $scope.cities = responses.data;
+            $scope.ocities = responses.data;
+          });
+        $http.get('@System.Configuration.ConfigurationManager.AppSettings["EventorsWebApiLink"].ToString()' + 'Populate/GetStates').then(function (responses) {
+            $scope.states = responses.data;
+            $scope.ostates = responses.data;
+          });
+        $http.get('@System.Configuration.ConfigurationManager.AppSettings["EventorsWebApiLink"].ToString()' + 'Populate/GetCountries').then(function (responses) {
+            $scope.countries = responses.data;
+            $scope.ocountries = responses.data;
+        });
+
+          // var lo = $location.search()['id'];
+       //  alert("PlaceID is - " + $location.search()['id']);
+
+        //  $scope.accountNo = $location.search()['accountNo'];
+        $scope.PlaceID = $location.search()['id'];
+        $scope.Save = function () {
+            if ($scope.AddressLine1) {
+                var placeAddress = {
+                    "AddressLine1": $scope.AddressLine1,
+                    "AddressLine2": $scope.AddressLine2,
+                    "LandMark": $scope.LandMark,
+                    "CityID": $scope.CityID,
+                    "StateID": $scope.StateID,
+                    "PlaceID": $scope.PlaceID,
+                    "Country": $scope.Country,
+                    "LongLatDetails": $scope.LongLatDetails,
+                    "PrimaryEmailAddress": $scope.OfficialEmail,
+                    "WebsiteLink":$scope.WebsiteLink
+                }
+
+                var placeOwner = {
+                    "Ownername": $scope.Ownername,
+                    "OwnerContact": $scope.OwnerContact,
+                    "OwnerAddress": $scope.OwnerAddress,
+                    "CityID": $scope.OCityID,
+                    "StateID": $scope.OStateID,
+                    "CountryID": $scope.OCountryID,
+                    "PlaceID": $scope.PlaceID,
+                }
+
+                var placeContact = {
+                    "PrimaryPOCName": $scope.PrimaryPOCName,
+                    "PrimaryPOCNumber": $scope.PrimaryPOCNumber,
+                    "SecondaryPOCName": $scope.SecondaryPOCName,
+                    "SecondaryPOCNumber": $scope.SecondaryPOCNumber,
+                    "PlaceID": $scope.PlaceID,
+                }
+
+                $.ajax({
+                    url: '@System.Configuration.ConfigurationManager.AppSettings["EventorsWebApiLink"].ToString()' + 'Place/AddAddress',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: placeAddress,
+                    success: function (data, textStatus, xhr) {
+                        if (data.PlaceAddressID > 0) {
+                            //alert('Place added successfully.');
+                            //$('#SaveVenue').attr('disabled', 'disabled');
+                            //$('html, body').animate({
+                            //    scrollTop: $($.attr(this, 'href')).offset().top
+                            //}, 500);
+                            //return false;
+                            //window.location.href = 'ContactDetails#/?id=' + data.PlaceID;
+                            $.ajax({
+                                url: '@System.Configuration.ConfigurationManager.AppSettings["EventorsWebApiLink"].ToString()' + 'Place/AddContactDetail',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: placeContact,
+                                success: function (data, textStatus, xhr) {
+                                    if (data.PlaceContactID > 0) {
+                                        //alert('Place added successfully.');
+                                        //$('#SaveVenue').attr('disabled', 'disabled');
+                                        //$('html, body').animate({
+                                        //    scrollTop: $($.attr(this, 'href')).offset().top
+                                        //}, 500);
+                                        //return false;
+                                        //window.location.href = 'ContactDetails#/?id=' + data.PlaceID;
+                                        $.ajax({
+                                            url: '@System.Configuration.ConfigurationManager.AppSettings["EventorsWebApiLink"].ToString()' + 'Place/AddOwnerDetail',
+                                            type: 'POST',
+                                            dataType: 'json',
+                                            data: placeOwner,
+                                            success: function (data, textStatus, xhr) {
+                                                if (data.PlaceOwnerID > 0) {
+                                                    //alert('Place added successfully.');
+                                                    //$('#SaveVenue').attr('disabled', 'disabled');
+                                                    //$('html, body').animate({
+                                                    //    scrollTop: $($.attr(this, 'href')).offset().top
+                                                    //}, 500);
+                                                    //return false;
+                                                    window.location.href = 'OtherDetails#/?id=' + data.PlaceID;
+                                                }
+                                                //console.log(data);
+                                            },
+                                            error: function (xhr, textStatus, errorThrown) {
+                                                console.log('Error in Operation');
+                                            }
+                                        });
+                                    }
+                                    //console.log(data);
+                                },
+                                error: function (xhr, textStatus, errorThrown) {
+                                    console.log('Error in Operation');
+                                }
+                            });
+                        }
+                        //console.log(data);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log('Error in Operation');
+                    }
+                });
+            }
+        }
+
+      }]);
+
+</script>
+<h2>Place Address and Contact Details</h2>
+<hr />
+<div class="row" ng-app="PlaceContactApp">
+    <div class="col-xs-12" ng-controller="PlaceContactController">
+
+        <form class="form-horizontal">
+
+            <h3>Add Address Details <i class="fa fa-car"></i></h3>
+            
+            <div class="form-group">
+                <label for="AddressLine1" class="col-lg-4 control-label">Venue Address</label>
+                <div class="col-lg-8">
+                    <textarea rows="5" cols="10" class="form-control" ng-model="AddressLine1" placeholder="Adress of the venue" required></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="AddressLine2" class="col-lg-4 control-label">Venue locality</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" ng-model="AddressLine2" placeholder="Locality of the venue" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="LandMark" class="col-lg-4 control-label">Landmark</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" ng-model="LandMark" placeholder="Nearest Landmark" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="CityID" class="col-lg-4 control-label">Select City</label>
+                <div class="col-lg-8">
+                    <select class="form-control" ng-model="CityID" ng-options="ct.CityId as ct.Description for ct in cities" ng-init="CityID=1"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="StateID" class="col-lg-4 control-label">Select State</label>
+                <div class="col-lg-8">
+                    <select class="form-control"  ng-model="StateID" ng-options="st.StateID as st.StateName for st in states" ng-init="StateID=1"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Country" class="col-lg-4 control-label">Select Country</label>
+                <div class="col-lg-8">
+                    <select class="form-control" ng-model="Country" ng-options="cy.CountryId as cy.Name for cy in countries" ng-init="Country=1"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="LongLatDetails" class="col-lg-4 control-label">Long/Lat Details</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" ng-model="LongLatDetails" placeholder="Longitude Latitude Details" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="OfficialEmail" class="col-lg-4 control-label">Official Email</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" ng-model="OfficialEmail" placeholder="e.g info@abc.com" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="WebsiteLink" class="col-lg-4 control-label">Website Link</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" ng-model="WebsiteLink" placeholder="e.g http://www.abc.com" >
+                </div>
+            </div>
+            <hr />
+            <h3>Add Contact Details <i class="fa fa-mobile"></i></h3>
+            <div class="form-group">
+                <label for="PrimaryPOCName" class="col-lg-4 control-label">Contact Person name:</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" ng-model="PrimaryPOCName" placeholder="Please provide primary contact person name" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="PrimaryPOCNumber" class="col-lg-4 control-label">Contact Person Number:</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" ng-model="PrimaryPOCNumber" placeholder="Please provide contact number of person" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="SecondaryPOCName" class="col-lg-4 control-label">Another Person Contact:</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" ng-model="SecondaryPOCName" placeholder="Please provide contact name of another person">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="SecondaryPOCNumber" class="col-lg-4 control-label">Contact Person Number:</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" ng-model="SecondaryPOCNumber" placeholder="Please provide contact number of another person">
+                </div>
+            </div>
+            <hr />
+            <h3>Add Owner Details <i class="fa fa-user"></i></h3>
+            <div class="form-group">
+                <label for="Ownername" class="col-lg-4 control-label">Owner name:</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" ng-model="Ownername" placeholder="Please provide owner name" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="OwnerContact" class="col-lg-4 control-label">Owner Contact:</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" ng-model="OwnerContact" placeholder="Please provide owner contact" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="OwnerAddress" class="col-lg-4 control-label">Owner Complete address:</label>
+                <div class="col-lg-8">
+                    <textarea rows="5" cols="10" class="form-control" ng-model="OwnerAddress" placeholder="Owner's complete address" required></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="OCityID" class="col-lg-4 control-label">Select City</label>
+                <div class="col-lg-8">
+                    <select class="form-control" ng-model="OCityID" ng-options="oct.CityId as oct.Description for oct in ocities" ng-init="OCityID=1"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="OStateID" class="col-lg-4 control-label">Select State</label>
+                <div class="col-lg-8">
+                    <select class="form-control" ng-model="OStateID" ng-options="ost.StateID as ost.StateName for ost in ostates" ng-init="OStateID=1"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="OCountryID" class="col-lg-4 control-label">Select Country</label>
+                <div class="col-lg-8">
+                    <select class="form-control" ng-model="OCountryID" ng-options="ocy.CountryId as ocy.Name for ocy in ocountries" ng-init="OCountryID=1"></select>
+                </div>
+            </div>
+            
+            <hr />
+            <div class="form-group">
+                <div class="col-lg-8 col-lg-offset-4">
+                    <button type="submit" id="SaveVenue" class="btn btn-primary" ng-click="Save()">Next <i class="fa fa-forward"></i></button>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>

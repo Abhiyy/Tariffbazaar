@@ -1,0 +1,128 @@
+﻿@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+<link href="~/Content/kendo/2016.2.504/kendo.common.min.css" rel="stylesheet" />
+<link href="~/Content/kendo/2016.2.504/kendo.default.min.css" rel="stylesheet" />
+<script src="~/Scripts/kendo/2016.2.504/kendo.ui.core.min.js"></script>
+<script src="~/Scripts/angular.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // create DatePicker from input HTML element
+        $("#datepickerAF").kendoDatePicker();
+        $("#datepickerAT").kendoDatePicker();
+    });
+</script>
+<script>
+    var app = angular.module("PlaceApp", []);
+
+    app.controller("PlaceController", ['$scope', '$http', function ($scope, $http) {
+        $http.get('@System.Configuration.ConfigurationManager.AppSettings["EventorsWebApiLink"].ToString()' + 'PlaceType').then(function (responses) {
+            $scope.PlaceType = responses.data;
+        });
+        $scope.Save = function () {
+            if ($scope.Name) {
+                var place = {
+                    "Name": $scope.Name,
+                    "SeatingCapacity": $scope.SeatingCapacity,
+                    "DiningCapacity": $scope.DiningCapacity,
+                    "Area": $scope.Area,
+                    "AvailableFrom": $scope.AvailableFrom,
+                    "AvailableTill": $scope.AvailableTill,
+                    "PlaceType": $scope.PlaceTypeID,
+                    "Active": $scope.Active
+                }
+                
+                $.ajax({
+                    url: '@System.Configuration.ConfigurationManager.AppSettings["EventorsWebApiLink"].ToString()' + 'Place',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: place,
+                    success: function (data, textStatus, xhr) {
+                        if (data!= null) {
+                            window.location.href = 'ContactDetails#/?id=' + data.PlaceID;
+                        }
+                        //console.log(data);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log('Error in Operation');
+                    }
+                });
+            }
+        }
+
+
+    }]);
+</script>
+
+<div class="row" ng-app="PlaceApp">
+    <div class="col-xs-12" ng-controller="PlaceController">
+        <h2>Add new venue <i class="fa fa-plus"></i></h2>
+        <form class="form-horizontal">
+          
+                
+                <div class="form-group">
+                    <label for="Name" class="col-lg-4 control-label">Venue Name</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="Name" placeholder="Venue or Place name" required>
+                    </div>
+                </div>
+            <div class="form-group">
+                <label for="SeatingCapacity" class="col-lg-4 control-label">Seating Capacity</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" ng-model="SeatingCapacity" placeholder="100-150">
+                </div>
+            </div>   
+            <div class="form-group">
+                <label for="DiningCapacity" class="col-lg-4 control-label">Dining Capacity</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" ng-model="DiningCapacity" placeholder="100-150">
+                </div>
+            </div>   
+            <div class="form-group">
+                <label for="Area" class="col-lg-4 control-label">Area</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" ng-model="Area" placeholder="1000 sq feets (in Approx)">
+                </div>
+            </div>  
+
+            <div class="form-group">
+                <label for="Name" class="col-lg-4 control-label">Available From</label>
+                <div class="col-lg-8">
+                    <input type="text" id="datepickerAF" class="form-control" ng-model="AvailableFrom" placeholder="11 May 2016">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="AvailableTill" class="col-lg-4 control-label">Available Till</label>
+                <div class="col-lg-8">
+                    <input type="text" id="datepickerAT" class="form-control" ng-model="AvailableTill" placeholder="17 June 2016">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="PlaceType" class="col-lg-4 control-label">Venue Type</label>
+                <div class="col-lg-8">
+                    <select class="form-control" id=" select" ng-model="PlaceTypeID" ng-options="pt.PlaceTypeID as pt.PlaceTypeName for pt in PlaceType" ng-init="PlaceTypeID=1"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Active" class="col-lg-4 control-label">Active</label>
+                <div class="col-lg-8">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="Active">
+                        </label>
+                    </div>
+                </div>
+            </div>
+                <div class="form-group">
+                    <div class="col-lg-8 col-lg-offset-4">
+                        <button type="submit" id="SaveVenue" class="btn btn-primary" ng-click="Save()">Next <i class="fa fa-forward"></i></button>
+                    </div>
+                </div>
+          
+            
+        </form>
+</div>
+   
+    
+</div>

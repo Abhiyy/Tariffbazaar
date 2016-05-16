@@ -1,0 +1,304 @@
+﻿@{
+    ViewBag.Title = "OtherDetails";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+<script src="~/Scripts/angular.min.js"></script>
+<link href="~/Content/isteven-multi-select.css" rel="stylesheet" />
+<script src="~/Scripts/isteven-multi-select.js"></script>
+<h2>Place Address and Contact Details</h2>
+<hr />
+<script>
+
+    var app = angular.module('PlaceOtherDetailsApp', []);
+    app = angular.module("PlaceOtherDetailsApp", ["isteven-multi-select"]);
+
+    app.controller('PlaceOtherDetailsController', ['$scope', '$location', '$http', function ($scope, $location, $http) {
+
+        $http.get('@System.Configuration.ConfigurationManager.AppSettings["EventorsWebApiLink"].ToString()' + 'Populate/GetEvents').then(function (responses) {
+            $scope.events = responses.data;
+           // $scope.ocities = responses.data;
+        });
+     
+        // var lo = $location.search()['id'];
+        //  alert("PlaceID is - " + $location.search()['id']);
+
+        //  $scope.accountNo = $location.search()['accountNo'];
+        $scope.PlaceID = $location.search()['id'];
+        $scope.Save = function () {
+//            if ($scope.AddressLine1) {
+                var placeFoodMenu = {
+                    "Vegetarian": $scope.Vegeterian,
+                    "NonVegetarian": $scope.NonVegeterian,
+                    "VegFoodMenu": $scope.VegFoodMenu,
+                    "NonVegFoodMenu": $scope.NonVegFoodMenu,
+                    "VegFoodMinCost": $scope.MinVegPlateCost,
+                    "PlaceID": $scope.PlaceID,
+                    "VegFoodMaxCost": $scope.MaxVegPlateCost,
+                    "NonVegFoodMinCost": $scope.MinNonVegPlateCost,
+                    "NonVegFoodMaxCost": $scope.MaxNonVegPlateCost
+                }
+
+                var placePriceDetails = {
+                    "Booking": $scope.Booking,
+                    "BookingPrice": $scope.BookingAmount,
+                    "Reservation": $scope.Reservation,
+                    "ReservationPrice": $scope.ReservationAmount,
+                    "PlaceID": $scope.PlaceID
+                }
+                var selEvents = "";
+                for (var i = 0; i < $scope.selectedEvents.length; i++) {
+                    selEvents += $scope.selectedEvents[i].EventTypeID + ",";
+                }
+                var placeProps = {
+                    "Rooms": $scope.Rooms,
+                    "AirConditioned": $scope.AirConditioned,
+                    "EventOptions": selEvents,
+                    "IsShaded": $scope.Shedding,
+                    "PlaceID": $scope.PlaceID,
+                }
+
+                $.ajax({
+                    url: '@System.Configuration.ConfigurationManager.AppSettings["EventorsWebApiLink"].ToString()' + 'Place/AddFoodMenuDetails',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: placeFoodMenu,
+                    success: function (data, textStatus, xhr) {
+                        if (data == true) {
+                              $.ajax({
+                                url: '@System.Configuration.ConfigurationManager.AppSettings["EventorsWebApiLink"].ToString()' + 'Place/SavePriceDetails',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: placePriceDetails,
+                                success: function (data, textStatus, xhr) {
+                                    if (data==true) {
+                                        $.ajax({
+                                            url: '@System.Configuration.ConfigurationManager.AppSettings["EventorsWebApiLink"].ToString()' + 'Place/SavePlaceProps',
+                                            type: 'POST',
+                                            dataType: 'json',
+                                            data: placeProps,
+                                            success: function (data, textStatus, xhr) {
+                                                if (data.PlacePropID > 0) {
+                                                    window.location.href = 'AddImages#/?id=' + data.PlaceID;
+                                                }
+                                                //console.log(data);
+                                            },
+                                            error: function (xhr, textStatus, errorThrown) {
+                                                console.log('Error in Operation');
+                                            }
+                                        });
+                                    }
+                                    //console.log(data);
+                                },
+                                error: function (xhr, textStatus, errorThrown) {
+                                    console.log('Error in Operation');
+                                }
+                            });
+                        }
+                        //console.log(data);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log('Error in Operation');
+                    }
+                });
+            
+        }
+
+    }]);
+
+</script>
+
+
+<script type="text/javascript">
+    function Showdiv(chkName,divName) {
+
+        if ($('#' + chkName).is(":checked"))
+            $("#" + divName).show();
+        else
+            $("#" + divName).hide();
+
+        
+    }
+</script>
+
+<div class="row" ng-app="PlaceOtherDetailsApp">
+    <div class="col-xs-12" ng-controller="PlaceOtherDetailsController">
+
+        <form class="form-horizontal">
+
+            <h3>Add Food menu details <i class="fa fa-cutlery"></i></h3>
+
+            <div class="form-group">
+                <label for="Veg" class="col-lg-4 control-label">Vegeterian Food Available</label>
+                <div class="col-lg-8">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="Vegeterian" id="chkVeg" onchange="Showdiv('chkVeg', 'divarVeg')" /> 
+                        </label>
+                    </div>
+                   
+                    
+                </div>
+            </div>
+            
+            <div id="divarVeg" style="display:none">
+                <div class="form-group">
+                    <label for="VegFoodMenu" class="col-lg-4 control-label">Vegeterian Food menu</label>
+                    <div class="col-lg-8">
+                        <textarea ng-model="VegFoodMenu" placeholder="Please provide veg food menu" class="form-control"></textarea>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="MinVegPlateCost" class="col-lg-4 control-label">Minimum Veg Plate Cost</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="MinVegPlateCost" placeholder="Provide minimum cost of the plate" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="MaxVegPlateCost" class="col-lg-4 control-label">Maximum Veg Plate Cost</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="MaxVegPlateCost" placeholder="Provide maximum cost of the plate" >
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="Vegeterian" class="col-lg-4 control-label">Non Vegeterian Food Available</label>
+                <div class="col-lg-8">
+                  
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="NonVegeterian" id="chkNonVeg" onchange="Showdiv('chkNonVeg', 'divarNonVeg')" /> 
+                        </label>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div id="divarNonVeg" style="display:none">
+                <div class="form-group">
+                    <label for="AddressLine2" class="col-lg-4 control-label">Non Vegeterian Food Menu</label>
+                    <div class="col-lg-8">
+                        <textarea ng-model="NonVegFoodMenu" placeholder="Please provide veg food menu" class="form-control" required></textarea>
+                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="MinNonVegPlateCost" class="col-lg-4 control-label">Minimum Non Veg Plate Cost</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="MinNonVegPlateCost" placeholder="Provide minimum cost of the plate" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="MaxNonVegPlateCost" class="col-lg-4 control-label">Maximum Non Veg Plate Cost</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="MaxNonVegPlateCost" placeholder="Provide maximum cost of the plate">
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+            <h3>Add Pricing Details <i class="fa fa-money"></i></h3>
+            
+            <div class="form-group">
+                <label for="Booking" class="col-lg-4 control-label">Booking</label>
+                <div class="col-lg-8">
+                   
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="Booking" id="chkBooking" onchange="Showdiv('chkBooking', 'divBooking')" /> 
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="divBooking" style="display:none">
+                
+                <div class="form-group">
+                    <label for="BookingAmount" class="col-lg-4 control-label">Booking Amount</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="BookingAmount" placeholder="Provide booking Amount of the venue" />
+                    </div>
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label for="Reservation" class="col-lg-4 control-label">Reservation</label>
+                <div class="col-lg-8">
+                    
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="Reservation" id="chkReservation" onchange="Showdiv('chkReservation', 'divReservation')" />
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="divReservation" style="display:none">
+
+                <div class="form-group">
+                    <label for="ReservationAmount" class="col-lg-4 control-label">Reservation Amount</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="ReservationAmount" placeholder="Provide booking Amount of the venue" />
+                    </div>
+                </div>
+
+            </div>
+
+            <hr />
+            <h3>Add Other Details <i class="fa fa-bars"></i></h3>
+            <div class="form-group">
+                <label for="Rooms" class="col-lg-4 control-label">Rooms:</label>
+                <div class="col-lg-8">
+                    <input type="text" class="form-control" ng-model="Rooms" placeholder="Please provide no of rooms, if any" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="AirConditioned" class="col-lg-4 control-label">Air Conditioning Available</label>
+                <div class="col-lg-8">
+                    
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="AirConditioned" /> 
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Shedding" class="col-lg-4 control-label">Is Shedding Available</label>
+                <div class="col-lg-8">
+                    
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="Shedding" />
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="selectedEvents" class="col-lg-4 control-label">Select Events Available</label>
+                <div class="col-lg-8">
+                    <div isteven-multi-select
+                         input-model="events"
+                         output-model="selectedEvents"
+                         button-label="Event"
+                         item-label="Event"
+                         tick-property="ticked">
+                    </div>
+                </div>
+            </div>
+           
+
+            <hr />
+            <div class="form-group">
+                <div class="col-lg-8 col-lg-offset-4">
+                    <button type="submit" id="SaveVenue" class="btn btn-primary" ng-click="Save()">Next <i class="fa fa-forward"></i></button>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
